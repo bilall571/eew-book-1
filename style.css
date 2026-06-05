@@ -1,0 +1,220 @@
+/* Mobil qurilmalar uchun maxsus render sozlamalari */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+    :root{
+        --bg-1: #eaf6ff;
+        --accent: #1cb0f6;
+        --accent-2: #58cc02;
+        --glass-bg: rgba(255,255,255,0.28);
+        --glass-border: rgba(255,255,255,0.55);
+    }
+body {
+    background: linear-gradient(180deg, #f3f9ff 0%, #f7fbff 100%);
+    color: #3c3c3c;
+    display: flex; justify-content: center; height: 100vh;
+    overflow: hidden; padding: 20px;
+}
+.app-container {
+    width: 100%; max-width: 520px; background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
+    display: flex; flex-direction: column; height: 100%;
+    position: relative; border-radius: 18px; padding: 8px; box-shadow: 0 8px 30px rgba(19,38,63,0.08);
+    backdrop-filter: blur(6px) saturate(120%);
+}
+
+/* Sahifalar boshqaruvi va silliq kirib kelish animatsiyasi */
+.view {
+    display: flex; flex-direction: column; width: 100%; height: 100%;
+    overflow-y: auto; padding: 20px;
+    animation: viewFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes viewFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dashboard & Brending */
+.brand-header { text-align: center; padding: 20px 0; border-bottom: 2px solid #f0f0f0; }
+.app-logo { width: 110px; height: 110px; border-radius: 20px; object-fit: cover; margin-bottom: 12px; box-shadow: 0 8px 20px rgba(12,40,80,0.06); border: 1px solid rgba(255,255,255,0.6); }
+.brand-title { font-size: 26px; font-weight: 900; color: var(--accent); letter-spacing: -0.5px; }
+.brand-subtitle { font-size: 14px; color: #777; font-weight: 600; margin-top: 5px; }
+.stats-mini-bar { text-align: center; margin-top: 10px; font-size: 12px; color: #aaa; font-weight: 700; }
+
+/* Unitlar Grid Tizimi */
+.units-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px 0; }
+.unit-card {
+    background: var(--glass-bg); border: 1px solid var(--glass-border); border-bottom-width: 4px;
+    border-radius: 16px; padding: 18px 12px; text-align: center; cursor: pointer;
+    transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms, border-color 220ms;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    box-shadow: 0 6px 18px rgba(20,40,70,0.06);
+}
+.unit-card:hover { transform: translateY(-6px) scale(1.02); border-color: rgba(255,255,255,0.9); box-shadow: 0 10px 26px rgba(20,40,70,0.10); }
+.unit-card:active { transform: translateY(-2px) scale(1.01); }
+.unit-icon { font-size: 28px; width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: inset 0 -6px 12px rgba(0,0,0,0.03);
+}
+.unit-name { font-size: 18px; font-weight: 800; color: #4b4b4b; }
+.unit-status { font-size: 11px; font-weight: 700; color: #afafaf; text-transform: uppercase; }
+
+/* Aktiv yoki tugatilgan unitlar vizuali */
+.unit-card.available { border-color: #84d8ff; }
+.unit-card.available .unit-name { color: #1cb0f6; }
+.unit-card.available .unit-icon { background: #ddf4ff; }
+
+/* O'yin Headeri */
+.game-header { padding: 15px 20px; display: flex; align-items: center; border-bottom: 2px solid #e5e5e5; background: #fff; gap: 15px; }
+.back-home-btn { background: none; border: none; font-size: 22px; color: #afafaf; cursor: pointer; font-weight: bold; }
+.unit-badge { font-weight: 800; font-size: 13px; color: #777; border: 2px solid #e5e5e5; padding: 4px 10px; border-radius: 10px; background: #fafafa; white-space: nowrap; }
+.progress-bg { flex-grow: 1; height: 14px; background-color: #e5e5e5; border-radius: 10px; overflow: hidden; }
+.progress-fill { height: 100%; width: 0%; background-color: #58cc02; border-radius: 10px; transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Savollar qismi */
+.question-container { display: flex; flex-direction: column; height: 100%; pt: 10px; }
+.question-title { font-size: 22px; font-weight: 800; margin-bottom: 15px; color: #3c3c3c; text-align: center;}
+.main-word {
+    font-size: 26px; font-weight: 800; color: var(--accent); text-align: center; margin-bottom: 25px; padding: 20px; border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.25));
+    border: 1px solid rgba(255,255,255,0.6);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 8px 22px rgba(6,20,40,0.04);
+}
+
+/* MCQ Variantlar */
+.options-grid { display: flex; flex-direction: column; gap: 12px; }
+.option-card { background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35)); border: 1px solid rgba(255,255,255,0.6); border-radius: 16px; padding: 16px; font-size: 17px; font-weight: 700; color: #4b4b4b; cursor: pointer; transition: transform 0.12s, box-shadow 0.12s; text-align: left; }
+.option-card:active { transform: translateY(2px); }
+.option-card.selected { border-color: #84d8ff; background-color: #ddf4ff; color: #1899d6; }
+.option-card.correct { border-color: #58a700; background-color: #d7ffb8; color: #58a700; }
+.option-card.wrong { border-color: #ea2b2b; background-color: #ffdfe0; color: #ea2b2b; }
+
+/* Yozish Rejimi (Input) */
+.input-container { width: 100%; display: flex; justify-content: center; margin-top: 10px; }
+#type-input { width: 100%; padding: 16px; font-size: 20px; font-weight: 700; color: #4b4b4b; border: 2px solid #e5e5e5; border-radius: 16px; text-align: center; outline: none; background: #fafafa; transition: 0.2s; }
+#type-input:focus { border-color: #1cb0f6; background-color: #fff; box-shadow: 0 0 10px rgba(28,176,246,0.15); }
+#type-input.correct { border-color: #58a700; background-color: #d7ffb8; color: #58a700; }
+#type-input.wrong { border-color: #ea2b2b; background-color: #ffdfe0; color: #ea2b2b; }
+
+/* Moslashtirish Ustunli Tizimi (Match Mode) */
+.match-tip { font-size: 13px; color: #aaa; text-align: center; margin-bottom: 15px; font-weight: 600; }
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.match-card { background: #fff; border: 2px solid #e5e5e5; border-bottom-width: 4px; border-radius: 14px; padding: 14px 10px; font-size: 15px; font-weight: 700; text-align: center; cursor: pointer; color: #4b4b4b; transition: all 0.15s; min-height: 52px; display: flex; align-items: center; justify-content: center;}
+.match-card.selected { background-color: #ddf4ff; border-color: #84d8ff; color: #1899d6; border-bottom-width: 2px; transform: translateY(2px); }
+.match-card.matched { background-color: #f1f5f9; border-color: #e2e8f0; color: #cbd5e1; transform: scale(0.95); opacity: 0.4; pointer-events: none; border-bottom-width: 2px; }
+.match-card.wrong { border-color: #ea2b2b; background-color: #ffdfe0; color: #ea2b2b; }
+
+/* Transition & Result ekranlari */
+.transition-card, .result-card { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 0 20px; }
+.transition-card { background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.22)); border-radius: 14px; padding: 28px; }
+.phase-icon-anim, .result-animation-box { font-size: 60px; margin-bottom: 20px; animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+#transition-title { font-size: 34px; font-weight: 900; color: #1cb0f6; }
+#transition-desc { font-size: 16px; color: #888; font-weight: 600; margin-top: 10px; }
+#result-stars { font-size: 40px; letter-spacing: 4px; margin-bottom: 10px; }
+#result-percent { font-size: 60px; color: #58cc02; font-weight: 900; }
+.result-stats-box { background: #f8fafc; padding: 12px 30px; border-radius: 12px; border: 2px solid #e2e8f0; margin: 15px 0; }
+#result-mistakes { font-size: 18px; color: #ea2b2b; font-weight: 800; }
+.result-motivation { font-size: 14px; color: #94a3b8; font-weight: 600; }
+
+/* Pastki Tekshirish Qismi (Footer) */
+.footer { padding: 20px; border-top: 2px solid #e5e5e5; background: #fff; display: flex; flex-direction: column; gap: 10px; }
+.footer.correct-bg { background-color: #d7ffb8; border-top-color: #bbf296; }
+.footer.wrong-bg { background-color: #ffdfe0; border-top-color: #ffb3b5; }
+.feedback-message { font-size: 18px; font-weight: 800; display: none; }
+.footer.correct-bg .feedback-message { display: block; color: #58a700; }
+.footer.wrong-bg .feedback-message { display: block; color: #ea2b2b; }
+
+/* Duolingo uslubidagi universal yashil tugma */
+.btn-primary { width: 100%; padding: 16px; font-size: 18px; font-weight: 800; text-transform: uppercase; color: #ffffff; background-color: #58cc02; border: none; border-radius: 16px; border-bottom: 4px solid #58a700; cursor: pointer; transition: all 0.1s; }
+.btn-primary:active:not(:disabled) { border-bottom-width: 0px; transform: translateY(4px); }
+.btn-primary:disabled { background-color: #e5e5e5; color: #afafaf; border-bottom-color: #e5e5e5; cursor: default; }
+.btn-primary.btn-correct { background-color: #58cc02; border-bottom-color: #58a700; }
+.btn-primary.btn-wrong { background-color: #ff4b4b; border-bottom-color: #ea2b2b; }
+
+/* Vibratsiya effekti (Xato qilinganda) */
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 75% { transform: translateX(-6px); } }
+.shake { animation: shake 0.35s ease-in-out; }
+
+
+
+/* Xato qilingan so'zlar ro'yxati dizayni */
+.failed-list-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ea2b2b;
+    margin-bottom: 10px;
+    text-align: left;
+    padding-left: 5px;
+}
+.failed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 220px; /* Telefon ekranidan chiqib ketmasligi uchun scroll */
+    overflow-y: auto;
+    padding-right: 5px;
+}
+.failed-item {
+    background: #ffdfe0;
+    border: 2px solid #ffb3b5;
+    border-radius: 12px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 700;
+}
+.failed-en { color: #ea2b2b; }
+.failed-arrow { color: #ff8b8d; font-size: 12px; }
+.failed-uz { color: #4b4b4b; text-align: right; }
+
+/* Scrollbarni chiroyli qilish */
+.failed-list::-webkit-scrollbar { width: 4px; }
+.failed-list::-webkit-scrollbar-thumb { background: #ffb3b5; border-radius: 10px; }
+
+/* Small responsive tweaks */
+@media (max-width:420px){
+    .units-grid{grid-template-columns: repeat(1,1fr);}
+    .brand-title{font-size:22px}
+}
+
+/* Mobile-first and iPhone specific safe-area / stronger glass */
+html, body { height: 100%; }
+body { padding: env(safe-area-inset-top, 20px) 12px env(safe-area-inset-bottom, 20px) 12px; }
+.app-container { padding: calc(env(safe-area-inset-top, 12px) + 8px) calc(env(safe-area-inset-right, 12px) + 8px) calc(env(safe-area-inset-bottom, 12px) + 8px) calc(env(safe-area-inset-left, 12px) + 8px); }
+
+/* Target devices that support backdrop-filter (iOS/Safari) with stronger glass */
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .ios .app-container {
+        background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+        border: 1px solid rgba(255,255,255,0.22);
+        -webkit-backdrop-filter: blur(14px) saturate(150%);
+        backdrop-filter: blur(14px) saturate(150%);
+        box-shadow: 0 12px 40px rgba(10,30,50,0.12);
+    }
+}
+
+/* Larger touch targets and spacing on phones */
+@media (max-width:600px){
+    .option-card{font-size:18px;padding:18px;border-radius:14px}
+    .match-card{min-height:60px;padding:16px}
+    .btn-primary{padding:14px;font-size:17px;border-radius:14px}
+    .brand-title{font-size:20px}
+    .question-title{font-size:20px}
+}
+
+/* Improve tap response */
+button, .option-card, .match-card { touch-action: manipulation; }
+
+/* Larger visible close button for quiz screens */
+.back-home-btn { background: rgba(255,255,255,0.92); border: 2px solid rgba(221, 238, 255, 0.85); width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: #1b1b1b; box-shadow: 0 10px 30px rgba(8, 22, 50, 0.08); }
+.back-home-btn:hover { background: #fff; color: #0f5178; }
+
+/* small pressed animation for start button */
+.btn-primary.pressed { transform: translateY(2px) scale(.995); box-shadow: 0 4px 10px rgba(6,20,40,0.06) !important; }

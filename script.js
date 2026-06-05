@@ -497,3 +497,37 @@ document.getElementById("quit-game-btn").onclick = () => {
 };
 
 buildDashboard();
+
+
+// IXCHAMLASHGAN BAZA (1 dan 27 gacha bemalol sig'adi)
+const rawUnits = {
+    unit1: [
+        "afraid | qo'rqqan | [əˈfreɪd]",
+        "agree | rozi bo'lmoq | [əˈɡriː]",
+        "angry | jahl chiqqan | [ˈæŋɡri]",
+        "arrive | yetib kelmoq | [əˈraɪv]",
+        "attack | hujum qilmoq | [əˈtæk]",
+        "bottom | tagi, pastki qismi | [ˈbɒtəm]"
+        // Qolgan so'zlarni ham xuddi shu formatda yozasiz...
+    ],
+    unit2: [
+        "adventure | sarguzasht | [ədˈventʃər]",
+        "approach | yaqinlashmoq | [əˈprəʊtʃ]",
+        "carefully | ehtiyotkorlik bilan | [ˈkeəfəli]"
+        // va hokazo...
+    ]
+};
+
+// Bu funksiya avtomatik ravishda qisqa yozuvlarni dastur tushunadigan holatga o'giradi
+const book1Database = {};
+for (let key in rawUnits) {
+    book1Database[key] = rawUnits[key].map(item => {
+        let parts = item.split("|").map(s => s.trim());
+        return { en: parts[0], uz: parts[1], tr: parts[2] };
+    });
+}
+
+// Barcha funksiyalarda book2Database o'rniga book1Database deb o'zgartiring!
+
+
+

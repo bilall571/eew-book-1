@@ -218,3 +218,31 @@ button, .option-card, .match-card { touch-action: manipulation; }
 
 /* small pressed animation for start button */
 .btn-primary.pressed { transform: translateY(2px) scale(.995); box-shadow: 0 4px 10px rgba(6,20,40,0.06) !important; }
+
+
+
+.btn-primary1 {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #ffffff;
+    background-color: #1cb0f6;
+    border: none;
+    border-radius: 16px;
+    border-bottom: 4px solid #1899d6;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+.btn-primary1:active:not(:disabled) {
+    border-bottom-width: 0px;
+    transform: translateY(4px);
+}
+
+.btn-primary1:disabled {
+    background-color: #e5e5e5;
+    color: #afafaf;
+    border-bottom-color: #e5e5e5;
+    cursor: default;
+}

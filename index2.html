@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Essential English Words 2</title>
+    <link rel="icon" type="image/x-icon" href="./img/566985.png">
     <link rel="stylesheet" href="./style2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -33,8 +34,26 @@
                 <!-- Unit kartalari JavaScript orqali dinamik yaratiladi -->
 
             </div>
-<button class="btn-primary1"><a href="./index3.html" target="_blank" style="color: inherit; text-decoration: none;">book 3</a></button>
+            <button class="btn-primary1"><a href="./index3.html" target="_blank" style="color: inherit; text-decoration: none;">book 3</a></button>
 
+        </div>
+        <div id="book-choice-overlay" class="modal-overlay">
+            <div class="modal-card">
+                <h2>Qaysi kitobni o'qiysiz?</h2>
+                <div class="modal-row modal-row-books">
+                    <button type="button" data-book="1">Kitob 1</button>
+                    <button type="button" data-book="2">Kitob 2</button>
+                    <button type="button" data-book="3">Kitob 3</button>
+                    <button type="button" data-book="4">Kitob 4</button>
+                    <button type="button" data-book="5">Kitob 5</button>
+                </div>
+                <h2>PDF yoki yodlaysizmi?</h2>
+                <div class="modal-row modal-row-modes">
+                    <button type="button" data-mode="memorize">Yodlayman</button>
+                    <button type="button" data-mode="pdf">PDF</button>
+                </div>
+                <p class="modal-hint">Avval kitobni tanlang, keyin rejimni tanlang.</p>
+            </div>
         </div>
 
         <!-- quick nav removed -->

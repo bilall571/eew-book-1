@@ -130,6 +130,15 @@ const matchGrid = document.getElementById("match-grid");
 
 // O'YIN HOLATI VA HATOLIKLARNI JAVOBGAR O'ZGARUVCHILARI
 let selectedUnitKey = "";
+let selectedBookNumber = 1;
+let selectedMode = 'memorize';
+const bookMap = {
+    1: { name: 'Essential English Words 1', pdf: 'EssentialEnglishWords1.pdf', page: 'index.html' },
+    2: { name: 'Essential English Words 2', pdf: 'essentialenglishwords2.pdf', page: 'index2.html' },
+    3: { name: 'Essential English Words 3', pdf: 'essentialenglishwords3.pdf', page: 'index3.html' },
+    4: { name: 'Essential English Words 4', pdf: 'essentialenglishwords4.pdf', page: 'index4.html' },
+    5: { name: 'Essential English Words 5', pdf: 'essentialenglishwords5.pdf', page: 'index5.html' }
+};
 let currentPhase = 1;
 let activeWords = [];
 let currentQuestionCount = 0;
@@ -161,8 +170,8 @@ function buildDashboard() {
         card.setAttribute('aria-label', `Open unit ${i}`);
 
         if (hasData) {
-            card.onclick = () => startUnitSession(key, i);
-            card.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startUnitSession(key, i); } };
+            card.onclick = () => startUnitSession(key, i, selectedBookNumber ? `Kitob ${selectedBookNumber} - UNIT ${i}` : undefined);
+            card.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startUnitSession(key, i, selectedBookNumber ? `Kitob ${selectedBookNumber} - UNIT ${i}` : undefined); } };
         }
         unitsContainer.appendChild(card);
     }
@@ -499,7 +508,55 @@ document.getElementById("quit-game-btn").onclick = () => {
 };
 
 buildDashboard();
+showBookSelectionOverlay();
 
+function showBookSelectionOverlay() {
+    const overlay = document.getElementById('book-choice-overlay');
+    const bookButtons = overlay.querySelectorAll('[data-book]');
+    const modeButtons = overlay.querySelectorAll('[data-mode]');
+    let chosenBook = null;
+
+    const updateBookButtons = () => {
+        bookButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.book === String(chosenBook));
+        });
+    };
+
+    const selectBook = (bookId) => {
+        chosenBook = bookId;
+        updateBookButtons();
+    };
+
+    bookButtons.forEach(button => {
+        button.onclick = () => selectBook(parseInt(button.dataset.book, 10));
+    });
+
+    modeButtons.forEach(button => {
+        button.onclick = () => {
+            if (!chosenBook) return;
+            selectedBookNumber = chosenBook;
+            const chosenInfo = bookMap[selectedBookNumber];
+            if (!chosenInfo) return;
+            if (button.dataset.mode === 'pdf') {
+                window.open(chosenInfo.pdf, '_blank');
+                return;
+            }
+
+            const currentPage = window.location.pathname.split('/').pop();
+            if (chosenInfo.page && chosenInfo.page !== currentPage) {
+                window.location.href = chosenInfo.page;
+                return;
+            }
+
+            selectedMode = 'memorize';
+            overlay.style.display = 'none';
+            const brandSubtitle = document.querySelector('.brand-subtitle');
+            if (brandSubtitle) {
+                brandSubtitle.textContent = `Tanlangan kitob: ${chosenInfo.name}. Unitni tanlang va yodlashni boshlang!`;
+            }
+        };
+    });
+}
 
 // IXCHAMLASHGAN BAZA (1 dan 27 gacha bemalol sig'adi)
 const rawUnits = {

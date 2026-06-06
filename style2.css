@@ -13,16 +13,48 @@
         --glass-border: rgba(255,255,255,0.55);
     }
 body {
-    background: linear-gradient(180deg, #f3f9ff 0%, #f7fbff 100%);
-    color: #3c3c3c;
-    display: flex; justify-content: center; height: 100vh;
-    overflow: hidden; padding: 20px;
+    background: linear-gradient(180deg, #eef5ff 0%, #e7f4ff 40%, #f8fbff 100%);
+    color: #2e3a4f;
+    display: flex; justify-content: center; min-height: 100vh;
+    overflow: auto; padding: 24px;
+    position: relative;
+}
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+}
+body::before {
+    width: 280px;
+    height: 280px;
+    top: -60px;
+    left: -40px;
+    background: rgba(28, 176, 246, 0.22);
+    animation: floatShapes 12s ease-in-out infinite;
+}
+body::after {
+    width: 380px;
+    height: 380px;
+    bottom: -90px;
+    right: -100px;
+    background: rgba(88, 204, 2, 0.14);
+    animation: floatShapes 18s ease-in-out infinite reverse;
 }
 .app-container {
-    width: 100%; max-width: 520px; background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
-    display: flex; flex-direction: column; height: 100%;
-    position: relative; border-radius: 18px; padding: 8px; box-shadow: 0 8px 30px rgba(19,38,63,0.08);
-    backdrop-filter: blur(6px) saturate(120%);
+    width: 100%; max-width: 980px; background: rgba(255,255,255,0.92);
+    display: flex; flex-direction: column; min-height: 100%;
+    position: relative; border-radius: 28px; padding: 18px; box-shadow: 0 20px 60px rgba(13,38,77,0.12);
+    backdrop-filter: blur(18px) saturate(140%);
+}
+
+@keyframes floatShapes {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(26px) translateX(16px); }
 }
 
 /* Sahifalar boshqaruvi va silliq kirib kelish animatsiyasi */
@@ -182,6 +214,16 @@ body {
 @media (max-width:420px){
     .units-grid{grid-template-columns: repeat(1,1fr);}
     .brand-title{font-size:22px}
+}
+
+@media (min-width:900px) {
+    body { padding: 40px; }
+    .app-container { max-width: 1120px; padding: 30px; }
+    .brand-header { padding: 28px 0; }
+    .brand-title { font-size: 34px; }
+    .units-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .unit-card { min-height: 180px; }
+    .btn-primary1 { max-width: 260px; margin: 0 auto; }
 }
 
 /* Mobile-first and iPhone specific safe-area / stronger glass */

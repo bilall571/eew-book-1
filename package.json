@@ -1,0 +1,24 @@
+{
+  "name": "eew-book",
+  "version": "1.0.0",
+  "description": "Essential English Words - Interactive learning application",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server -p 3000",
+    "start": "npx http-server -p 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bilall571/eew-book-1.git"
+  },
+  "keywords": [
+    "english",
+    "learning",
+    "vocabulary",
+    "education"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aloqa yo'q</title>
+    <link rel="icon" type="image/x-icon" href="./img/566985.png">
+    <!-- Murojaat tugmasidagi Telegram ikonkani oflaynda ham ko'rsatish uchun FontAwesome kutubxonasi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0; padding: 0;
+            background: #131f24; color: #fff;
+            font-family: 'Nunito', sans-serif;
+            display: flex; align-items: center; justify-content: center;
+            height: 100vh; text-align: center;
+        }
+        .error-card {
+            background: #fff; padding: 40px 30px;
+            border-radius: 24px; max-width: 400px; width: 90%;
+            color: #4b4b4b;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+
+        /* =========================================================
+           ANIMATSIYALIK WI-FI BELGISI (DUOLINGO STYLE)
+           ========================================================= */
+        .wifi-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wifi-icon path {
+            fill: none;
+            stroke: #1cb0f6; /* Siz aytgan daxshatli moviy rang */
+            stroke-width: 3;
+            stroke-linecap: round;
+        }
+
+        .wifi-icon .dot {
+            fill: #1cb0f6;
+        }
+
+        /* To'lqinlar ketma-ket yonib-o'chishi uchun daxshatli animatsiya */
+        .wave-1 { animation: wifiWave 1.5s infinite 0.2s; }
+        .wave-2 { animation: wifiWave 1.5s infinite 0.4s; }
+        .wave-3 { animation: wifiWave 1.5s infinite 0.6s; }
+
+        @keyframes wifiWave {
+            0% { opacity: 0.2; transform: scale(0.98); }
+            50% { opacity: 1; filter: drop-shadow(0 0 5px rgba(28, 176, 246, 0.8)); }
+            100% { opacity: 0.2; transform: scale(1); }
+        }
+
+        h1 { color: #1cb0f6; font-size: 26px; font-weight: 900; margin: 0 0 10px; }
+        p { color: #777; font-size: 16px; font-weight: 600; margin-bottom: 30px; }
+
+        /* Telegram qismi dizayni */
+        .support { border-top: 2px dashed #e5e5e5; padding-top: 20px; }
+        .support .end { font-size: 15px; font-weight: 700; color: #888; margin-bottom: 15px; }
+
+        .btn-primary67 {
+            display: block; width: 100%; padding: 15px;
+            font-size: 16px; font-weight: 800; text-transform: uppercase;
+            color: #ffffff; background-color: #1cb0f6;
+            border: none; border-radius: 14px; border-bottom: 4px solid #1899d6;
+            cursor: pointer; transition: 0.1s;
+            box-shadow: 0 4px 15px rgba(28, 176, 246, 0.2);
+        }
+        .btn-primary67 a { color: #fff; text-decoration: none; display: block; width: 100%; height: 100%; }
+        .btn-primary67:active { border-bottom-width: 0px; transform: translateY(4px); box-shadow: none; }
+    </style>
+</head>
+<body>
+    <div class="error-card">
+
+        <!-- Sof SVG kodli aylanuvchi/to'lqinli Wi-Fi -->
+        <div class="wifi-container">
+            <svg class="wifi-icon" viewBox="0 0 24 24" width="80" height="80">
+                <circle class="dot" cx="12" cy="18" r="1.5" />
+                <path class="wave-1" d="M9.17 15.17a4 4 0 0 1 5.66 0" />
+                <path class="wave-2" d="M6.34 12.34a8 8 0 0 1 11.32 0" />
+                <path class="wave-3" d="M3.51 9.51a12 12 0 0 1 16.98 0" />
+            </svg>
+        </div>
+
+        <h1>Internet uzildi!</h1>
+        <p>Saytdan foydalanish uchun tarmoqqa ulaning.</p>
+
+        <div class="support">
+            <p class="end">Agar sayt ishlamasa bizga murojaat qiling </p>
+            <button class="btn-primary67">
+                <a href="https://t.me/Istifo2" target="_blank">Murojaat uchun <i class="fa-brands fa-telegram" style="color: rgb(28, 176, 246);"></i></a>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

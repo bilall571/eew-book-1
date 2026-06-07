@@ -104,7 +104,15 @@
         </footer>
 
     </div>
-
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('Service Worker ishladi!', reg))
+                .catch(err => console.error('Service Worker xato:', err));
+        });
+    }
+</script>
     <script src="./script3.js"></script>
 </body>
 </html>

@@ -13,16 +13,48 @@
         --glass-border: rgba(255,255,255,0.55);
     }
 body {
-    background: linear-gradient(180deg, #f3f9ff 0%, #f7fbff 100%);
-    color: #3c3c3c;
-    display: flex; justify-content: center; height: 100vh;
-    overflow: hidden; padding: 20px;
+    background: linear-gradient(180deg, #eef5ff 0%, #e6f3ff 45%, #f9fbff 100%);
+    color: #2e3a4f;
+    display: flex; justify-content: center; min-height: 100vh;
+    overflow: auto; padding: 24px;
+    position: relative;
+}
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+}
+body::before {
+    width: 260px;
+    height: 260px;
+    top: -50px;
+    left: -30px;
+    background: rgba(28, 176, 246, 0.22);
+    animation: floatShapes 12s ease-in-out infinite;
+}
+body::after {
+    width: 340px;
+    height: 340px;
+    bottom: -80px;
+    right: -90px;
+    background: rgba(88, 204, 2, 0.16);
+    animation: floatShapes 18s ease-in-out infinite reverse;
 }
 .app-container {
-    width: 100%; max-width: 520px; background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
-    display: flex; flex-direction: column; height: 100%;
-    position: relative; border-radius: 18px; padding: 8px; box-shadow: 0 8px 30px rgba(19,38,63,0.08);
-    backdrop-filter: blur(6px) saturate(120%);
+    width: 100%; max-width: 980px; background: rgba(255,255,255,0.95);
+    display: flex; flex-direction: column; min-height: 100%;
+    position: relative; border-radius: 28px; padding: 18px; box-shadow: 0 22px 62px rgba(11,29,63,0.12);
+    backdrop-filter: blur(18px) saturate(140%);
+}
+
+@keyframes floatShapes {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(16px, 22px); }
 }
 
 /* Sahifalar boshqaruvi va silliq kirib kelish animatsiyasi */
@@ -184,6 +216,16 @@ body {
     .brand-title{font-size:22px}
 }
 
+@media (min-width:900px) {
+    body { padding: 40px; }
+    .app-container { max-width: 900px; padding: 20px; border-radius: 24px; }
+    .units-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .brand-header { padding: 30px 0; }
+    .brand-title { font-size: 32px; }
+    .question-title { font-size: 24px; }
+    .modal-card { max-width: 680px; }
+}
+
 /* Mobile-first and iPhone specific safe-area / stronger glass */
 html, body { height: 100%; }
 body { padding: env(safe-area-inset-top, 20px) 12px env(safe-area-inset-bottom, 20px) 12px; }
@@ -240,9 +282,107 @@ button, .option-card, .match-card { touch-action: manipulation; }
     transform: translateY(4px);
 }
 
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(12, 24, 45, 0.72);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px 16px;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 460px;
+    background: rgba(255,255,255,0.98);
+    border-radius: 24px;
+    padding: 28px 24px;
+    box-shadow: 0 24px 60px rgba(12,24,45,0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.modal-card h2 {
+    font-size: 20px;
+    color: #0f3b66;
+    font-weight: 900;
+}
+
+.modal-row {
+    display: grid;
+    gap: 12px;
+}
+
+.modal-row-books {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.modal-row-modes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.modal-card button {
+    padding: 14px 12px;
+    border: none;
+    border-radius: 14px;
+    background: #f3f8ff;
+    color: #184b8b;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.modal-card button:hover,
+.modal-card button.active {
+    background: #1cb0f6;
+    color: #fff;
+    box-shadow: 0 12px 24px rgba(28,176,246,0.24);
+    transform: translateY(-1px);
+}
+
+.modal-hint {
+    font-size: 13px;
+    color: #5b6b7c;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
 .btn-primary1:disabled {
     background-color: #e5e5e5;
     color: #afafaf;
     border-bottom-color: #e5e5e5;
     cursor: default;
+}
+
+
+
+
+.brand-title {
+    font-size: 32px;
+    font-weight: 900;
+    /* Daxshatli gradient ranglar (Moviy, Yashil, Sariq) */
+    background: linear-gradient(90deg, #1cb0f6, #58cc02, #ffc800, #1cb0f6);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* 3 soniyada uzluksiz aylanib turadi */
+    animation: shineText 3s linear infinite;
+    margin-top: 15px;
+}
+
+/* Yozuvdagi nurni yurgizadigan animatsiya */
+@keyframes shineText {
+    to {
+        background-position: 200% center;
+    }
 }

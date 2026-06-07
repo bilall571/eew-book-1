@@ -10,6 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+<div id="system-error-overlay" class="error-modal-overlay" style="display: none;">
+    <div class="error-modal-card">
+        <div class="error-icon-anim" id="error-icon-display">📡</div>
+        <h2 id="error-modal-title">Aloqa uzildi!</h2>
+        <p id="error-modal-desc">Iltimos, internet tarmog'ingizni tekshirib ko'ring.</p>
+
+        <button class="btn-primary" id="error-refresh-btn">YANGILASH</button>
+
+        <div class="support-section">
+            <p class="end">Agar sayt ishlamasa bizga murojat qiling <i class="fa-brands fa-telegram" style="color: rgb(28, 176, 246);"></i></p>
+            <button class="btn-primary67">
+                <a href="https://t.me/Istifo2" target="_blank" style="color: inherit; text-decoration: none;">Murojaat uchun</a>
+            </button>
+        </div>
+    </div>
+</div>
     <div class="app-container" id="app-container">
 
         <!-- 1. BOSH SAHIFA (DASHBOARD) -->
@@ -30,6 +46,8 @@
                 <!-- Unit kartalari JavaScript orqali dinamik yaratiladi -->
             </div>
             <button class="btn-primary1"><a href="./index2.html" target="_blank" style="color: inherit; text-decoration: none;">book 2</a></button>
+            <p class="end">agar sayt ishlamasa bizga murojat qiling <i class="fa-brands fa-telegram" style="color: rgb(28, 176, 246);"></i> </p>
+            <button class="btn-primary67"><a href="https://t.me/Istifo2" target="_blank" style="color: inherit; text-decoration: none;">murojat uchun</a></button>
 
         </div>
 
@@ -104,6 +122,7 @@
         </footer>
 
     </div>
+
     <div id="book-choice-overlay" class="modal-overlay">
         <div class="modal-card">
             <h2>Qaysi kitobni o'qiysiz?</h2>
@@ -122,6 +141,7 @@
             <p class="modal-hint">Avval kitobni tanlang, keyin rejimni tanlang.</p>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

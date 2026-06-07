@@ -1113,3 +1113,68 @@ for (let key in rawUnits) {
 
 
 
+
+/* =========================================================
+   OFFLINE VA ERROR NAZORATCHISI
+   ========================================================= */
+const errorOverlay = document.getElementById('system-error-overlay');
+const errorTitle = document.getElementById('error-modal-title');
+const errorDesc = document.getElementById('error-modal-desc');
+const errorIcon = document.getElementById('error-icon-display');
+const errorRefreshBtn = document.getElementById('error-refresh-btn');
+
+// Oynani ko'rsatish funksiyasi
+function triggerSystemError(type) {
+    errorOverlay.style.display = 'flex'; // Oynani ochamiz
+
+    if (type === 'offline') {
+        errorIcon.innerText = "🦖"; // Tarmoq yo'qligiga ishora
+        errorTitle.innerText = "Internet uzildi!";
+        errorTitle.style.color = "#ea2b2b";
+        errorDesc.innerText = "Saytdan foydalanish uchun Wi-Fi yoki mobil internetni yoqing.";
+    }
+    else if (type === 'crash') {
+        errorIcon.innerText = "🛠️";
+        errorTitle.innerText = "Texnik xatolik!";
+        errorTitle.style.color = "#ffc800";
+        errorDesc.innerText = "Saytda qandaydir nosozlik yuz berdi. Iltimos, sahifani yangilang.";
+    }
+}
+
+// 1. Internet uzilganini sezish (Offline)
+window.addEventListener('offline', () => triggerSystemError('offline'));
+
+// Internet qayta yonganda oynani avtomat yopish (Online)
+window.addEventListener('online', () => {
+    errorOverlay.style.display = 'none';
+    // Xohlasangiz avtomatik yangilab yuborish uchun pastdagi kodni oching:
+    // location.reload();
+});
+
+// Saytga birinchi marta kirganda internet yo'q bo'lsa
+if (!navigator.onLine) {
+    triggerSystemError('offline');
+}
+
+// 2. Saytda kod xatosi yoki server o'chib qolishini sezish (Crash / Fetch error)
+window.addEventListener('error', function(event) {
+    console.error("Sayt kodi quladi: ", event);
+    triggerSystemError('crash');
+});
+
+// Agar JSON server (API) dan ma'lumot kelmay qolsa
+window.addEventListener('unhandledrejection', function(event) {
+    console.error("Server bilan aloqa yo'q: ", event.reason);
+    triggerSystemError('crash');
+});
+
+// 3. Yangilash tugmasi bosilganda
+errorRefreshBtn.addEventListener('click', () => {
+    errorRefreshBtn.innerText = "YANGILANMOQDA...";
+    setTimeout(() => {
+        location.reload(); // Sahifani qayta yuklaydi
+    }, 500);
+});
+
+
+

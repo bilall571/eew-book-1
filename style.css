@@ -18,6 +18,8 @@ body {
     display: flex; justify-content: center; min-height: 100vh;
     overflow: auto; padding: 24px;
     position: relative;
+
+
 }
 body::before,
 body::after {

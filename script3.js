@@ -764,7 +764,7 @@ function startUnitSession(unitKey, unitNum, displayLabel) {
     failedWords = []; // Seans boshida tozalash
     const titleText = displayLabel ? displayLabel : `UNIT ${unitNum}`;
     unitBadge.textContent = titleText;
-    showPhaseTransition(titleText, "Sizni oldinda 10 ta aralash test va maxsus Bomba Rejimi kutmoqda!");
+    showPhaseTransition(titleText, "Sizni oldinda 10 ta aralash test va maxsus tanlash Rejimi kutmoqda!");
 }
 
 function showPhaseTransition(title, desc) {
@@ -832,7 +832,7 @@ function loadNextQuestion() {
 
     if (currentQuestionCount >= totalQuestions) {
         currentPhase = 2;
-        showPhaseTransition("BOMBA REJIM", "Ajoyib! Endi chap va o'ng ustundagi so'zlarni xatosiz bir-biriga ulang!");
+        showPhaseTransition("TANLASH REJIM", "Ajoyib! Endi chap va o'ng ustundagi so'zlarni xatosiz bir-biriga ulang!");
         return;
     }
 

@@ -4,7 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aloqa yo'q</title>
-    <link rel="icon" type="image/x-icon" href="./img/566985.png">
+    <link rel="icon" type="image/x-icon" href="./img/566985.png"><!-- Admin Panel qismi (faqat admin uchun ko'rinadi) -->
+    <div id="admin-panel" style="display: none; background: #131f24; color: white; padding: 20px; border-radius: 15px; margin: 20px 0;">
+        <h2 style="color: #1cb0f6;">📊 Admin Statistika</h2>
+        <p>Umumiy tashriflar: <span id="total-visits-count">0</span></p>
+        <p>Hozir onlayn: <span id="online-users-count">0</span></p>
+        <div id="users-list" style="font-size: 12px; color: #aaa;"></div>
+    </div>
+
+    <script type="module">
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        const db = getDatabase();
+
+        // ADMIN TEKSHIRUVI
+        // Kompyuteringizda Console'ni ochib: localStorage.setItem('eew_admin_key', 'daxshatli_parol_123') deb yozasiz
+        const adminKey = localStorage.getItem('eew_admin_key');
+        const secret = "daxshatli_parol_123"; // O'zingiz xohlagan parol
+
+        if (adminKey === secret) {
+            document.getElementById('admin-panel').style.display = 'block';
+
+            // Ma'lumotlarni bazadan o'qib ko'rsatish
+            onValue(ref(db, 'stats/totalVisits'), (snapshot) => {
+                document.getElementById('total-visits-count').textContent = snapshot.val() || 0;
+            });
+
+            onValue(ref(db, 'onlineUsers'), (snapshot) => {
+                const onlineData = snapshot.val();
+                const count = onlineData ? Object.keys(onlineData).length : 0;
+                document.getElementById('online-users-count').textContent = count;
+            });
+        }
+    </script>
+
     <!-- Murojaat tugmasidagi Telegram ikonkani oflaynda ham ko'rsatish uchun FontAwesome kutubxonasi -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>

@@ -1,4 +1,3 @@
-import { Analytics } from "@vercel/analytics/next";
 // DASTUR BAZASI (ESSENTIAL ENGLISH WORDS)
 const database = {
     unit1: [
@@ -562,7 +561,11 @@ function showBookSelectionOverlay() {
 
     modeButtons.forEach(button => {
         button.onclick = () => {
-            if (!chosenBook) return;
+            if (!chosenBook) {
+                const hint = overlay.querySelector('.modal-hint');
+                if (hint) { hint.style.color = '#ea2b2b'; hint.textContent = 'Iltimos, avval kitobni tanlang!'; }
+                return;
+            }
 
             // Tanlovni eslab qolamiz
             sessionStorage.setItem('bookSelected', 'true');

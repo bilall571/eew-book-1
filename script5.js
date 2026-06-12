@@ -721,6 +721,14 @@ window.addEventListener('click', unlockAudio, { once: true }); // Birinchi click
 
 // O'YIN HOLATI VA HATOLIKLARNI JAVOBGAR O'ZGARUVCHILARI
 let selectedUnitKey = "";
+let selectedBookNumber = 5;
+const bookMap = {
+    1: { name: 'Essential English Words 1', pdf: 'EssentialEnglishWords1.pdf', page: 'index.html' },
+    2: { name: 'Essential English Words 2', pdf: 'essentialenglishwords2.pdf', page: 'index2.html' },
+    3: { name: 'Essential English Words 3', pdf: 'essentialenglishwords3.pdf', page: 'index3.html' },
+    4: { name: 'Essential English Words 4', pdf: 'essentialenglishwords4.pdf', page: 'index4.html' },
+    5: { name: 'Essential English Words 5', pdf: 'essentialenglishwords5.pdf', page: 'index5.html' }
+};
 let currentPhase = 1;
 let activeWords = [];
 let currentQuestionCount = 0;
@@ -1096,6 +1104,7 @@ document.getElementById("quit-game-btn").onclick = () => {
 };
 
 buildDashboard();
+showBookSelectionOverlay();
 
 
 // IXCHAMLASHGAN BAZA (1 dan 27 gacha bemalol sig'adi)

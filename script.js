@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 // DASTUR BAZASI (ESSENTIAL ENGLISH WORDS)
 const database = {
     unit1: [
@@ -219,7 +220,7 @@ function showPhaseTransition(title, desc) {
 document.getElementById("start-phase-btn").onclick = () => {
     gameHeader.style.display = "flex";
     unlockAudio(); // O'yin boshlanganda ovozni yana bir bor uyg'otamiz
-    
+
     if (currentPhase === 1) {
         // If a single unit is active, use its words; otherwise ensure activeWords is set (from merged selection)
         if (selectedUnitKey && database[selectedUnitKey]) {

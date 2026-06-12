@@ -125,6 +125,7 @@ body::after {
 .options-grid { display: flex; flex-direction: column; gap: 12px; }
 .option-card { background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35)); border: 1px solid rgba(255,255,255,0.6); border-radius: 16px; padding: 16px; font-size: 17px; font-weight: 700; color: #4b4b4b; cursor: pointer; transition: transform 0.12s, box-shadow 0.12s; text-align: left; }
 .option-card:active { transform: translateY(2px); }
+.option-card:hover:not(.correct):not(.wrong) { transform: translateX(8px); background: #f0f8ff; border-color: var(--accent); }
 .option-card.selected { border-color: #84d8ff; background-color: #ddf4ff; color: #1899d6; }
 .option-card.correct { border-color: #58a700; background-color: #d7ffb8; color: #58a700; }
 .option-card.wrong { border-color: #ea2b2b; background-color: #ffdfe0; color: #ea2b2b; }

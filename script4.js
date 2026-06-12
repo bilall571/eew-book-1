@@ -706,6 +706,17 @@ const feedbackMsg = document.getElementById("feedback-message");
 const appContainer = document.getElementById("app-container");
 const matchGrid = document.getElementById("match-grid");
 
+// OVOZLAR BAZASI VA PRE-LOAD
+const correctSound = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
+const wrongSound = new Audio('https://www.soundjay.com/buttons/sounds/button-10.mp3');
+
+// Brauzerda ovozni faollashtirish (PC va Mobile uchun)
+function unlockAudio() {
+    correctSound.play().then(() => { correctSound.pause(); correctSound.currentTime = 0; }).catch(() => {});
+    wrongSound.play().then(() => { wrongSound.pause(); wrongSound.currentTime = 0; }).catch(() => {});
+}
+window.addEventListener('click', unlockAudio, { once: true }); // Birinchi clickda ovozni uyg'otamiz
+
 // (Import UI removed - using dashboard controls)
 
 // O'YIN HOLATI VA HATOLIKLARNI JAVOBGAR O'ZGARUVCHILARI
@@ -776,6 +787,7 @@ function showPhaseTransition(title, desc) {
 
 document.getElementById("start-phase-btn").onclick = () => {
     gameHeader.style.display = "flex";
+    unlockAudio(); // O'yin boshlanganda ovozni yana bir bor uyg'otamiz
     if (currentPhase === 1) {
         // If a single unit is active, use its words; otherwise ensure activeWords is set (from merged selection)
         if (selectedUnitKey && database[selectedUnitKey]) {
@@ -900,6 +912,8 @@ actionBtn.onclick = () => {
 
         if (isCorrect) {
             if (selectedOptionBtn) selectedOptionBtn.classList.add("correct");
+            correctSound.currentTime = 0; // Ovozni boshidan boshlash
+            correctSound.play().catch(e => console.log("Ovoz xatosi:", e));
             footer.classList.add("correct-bg");
             actionBtn.classList.add("btn-correct");
             feedbackMsg.textContent = "✅ Ajoyib! To'g'ri topdingiz.";
@@ -907,6 +921,9 @@ actionBtn.onclick = () => {
             currentQuestionCount++;
         } else {
             mistakesCount++;
+            wrongSound.currentTime = 0; // Ovozni boshidan boshlash
+            wrongSound.play().catch(e => console.log("Ovoz xatosi:", e));
+            if ("vibrate" in navigator) { navigator.vibrate(200); } // Mobil qurilmada vibratsiya
 
             // XATO QILINGAN SO'ZNI RO'YXATGA QO'SHISH
             if (!failedWords.some(w => w.en === currentWord.en)) {
@@ -1110,7 +1127,3 @@ for (let key in rawUnits) {
 }
 
 // Barcha funksiyalarda book2Database o'rniga book1Database deb o'zgartiring!
-
-
-
-

@@ -51,8 +51,10 @@
     onDisconnect(myPresenceRef).remove();
 
     // --- LOGIN MANTIG'I ---
+    // DIQQAT: Bu login ma'lumotlari brauzerning manba kodida ochiq ko'rinib turibdi!
+    // Bu jiddiy xavfsizlik zaifligi. Haqiqiy admin paneli uchun server-side autentifikatsiya kerak.
     const ADMIN_USER = "admin";
-    const ADMIN_PASS = "bilolhon";
+    const ADMIN_PASS = "ponchi";
 
     // Global funksiyalar (HTML dan chaqirish uchun)
     window.handleAdminLogin = (e) => {
@@ -61,8 +63,10 @@
         const pass = document.getElementById('admin-password').value;
 
         if (name === ADMIN_USER && pass === ADMIN_PASS) {
-            // Maxfiy tokenni vaqtincha saqlash
+            // DIQQAT: Bu "admin_access" kaliti foydalanuvchi brauzer konsoli orqali osongina o'rnatilishi mumkin.
+            // Bu admin panelga kirishni cheklashda samarasiz.
             sessionStorage.setItem('admin_access', 'true');
+            // Haqiqiy yechim: Serverga login ma'lumotlarini yuborib, xavfsiz token olish.
             window.location.href = 'admin.html'; // Yangi sahifaga o'tish
         } else {
             document.getElementById('admin-password').value = ''; // Parolni tozalash

@@ -23,7 +23,9 @@
 </head>
 <body>
     <script>
-        // Xavfsizlik: Agar login qilmagan bo'lsa, haydab yuboramiz
+        // DIQQAT: Bu tekshiruv faqat mijoz tomonida (brauzerda) amalga oshiriladi.
+        // Foydalanuvchi brauzer konsoli orqali `sessionStorage.setItem('admin_access', 'true')` deb yozib,
+        // bu tekshiruvni osongina chetlab o'tishi mumkin.
         if (sessionStorage.getItem('admin_access') !== 'true') {
             window.location.href = 'index.html';
         }

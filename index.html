@@ -46,15 +46,13 @@
     // 2. Onlayn foydalanuvchini ro'yxatga olish
     const myPresenceRef = push(ref(db, 'onlineUsers'));
     // Qaysi qurilmadan kirayotganini ham saqlaymiz (Admin ko'rishi uchun)
-    const deviceType = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? "Mobil" : "PC";
+    const deviceType = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? "📱 Mobil" : "💻 PC";
     set(myPresenceRef, { lastSeen: Date.now(), device: deviceType });
     onDisconnect(myPresenceRef).remove();
 
     // --- LOGIN MANTIG'I ---
-    // DIQQAT: Bu login ma'lumotlari brauzerning manba kodida ochiq ko'rinib turibdi!
-    // Bu jiddiy xavfsizlik zaifligi. Haqiqiy admin paneli uchun server-side autentifikatsiya kerak.
     const ADMIN_USER = "admin";
-    const ADMIN_PASS = "ponchi";
+    const ADMIN_PASS = "siz";
 
     // Global funksiyalar (HTML dan chaqirish uchun)
     window.handleAdminLogin = (e) => {
@@ -63,10 +61,7 @@
         const pass = document.getElementById('admin-password').value;
 
         if (name === ADMIN_USER && pass === ADMIN_PASS) {
-            // DIQQAT: Bu "admin_access" kaliti foydalanuvchi brauzer konsoli orqali osongina o'rnatilishi mumkin.
-            // Bu admin panelga kirishni cheklashda samarasiz.
             sessionStorage.setItem('admin_access', 'true');
-            // Haqiqiy yechim: Serverga login ma'lumotlarini yuborib, xavfsiz token olish.
             window.location.href = 'admin.html'; // Yangi sahifaga o'tish
         } else {
             document.getElementById('admin-password').value = ''; // Parolni tozalash

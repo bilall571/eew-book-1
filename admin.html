@@ -23,9 +23,6 @@
 </head>
 <body>
     <script>
-        // DIQQAT: Bu tekshiruv faqat mijoz tomonida (brauzerda) amalga oshiriladi.
-        // Foydalanuvchi brauzer konsoli orqali `sessionStorage.setItem('admin_access', 'true')` deb yozib,
-        // bu tekshiruvni osongina chetlab o'tishi mumkin.
         if (sessionStorage.getItem('admin_access') !== 'true') {
             window.location.href = 'index.html';
         }
@@ -80,11 +77,7 @@
         onValue(ref(db, 'onlineUsers'), (snapshot) => {
             const data = snapshot.val();
             const count = data ? Object.keys(data).length : 0;
-            document.getElementById('online-count').textContent = count;
-
-            // Kimlar onlayn ekanini (qurilmasini) ro'yxatda ko'rsatish
-            const list = document.getElementById('daily-stats-list'); // Re-using container for demo
-            // Bu yerda onlayn foydalanuvchilar ro'yxatini ham chiqarish mumkin
+            document.getElementById('online-count').textContent = count; // Real-time yangilanadi
         });
 
         // 2. Umumiy tashriflar

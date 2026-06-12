@@ -27,6 +27,7 @@
 
     const firebaseConfig = {
         // DIQQAT: Bu yerga Firebase'dan olingan haqiqiy Realtime Database URL'ni qo'ying!
+        // Masalan: "https://your-project-id-default-rtdb.firebaseio.com"
         databaseURL: "https://eew-words-default-rtdb.firebaseio.com",
     };
 
@@ -39,15 +40,17 @@
     // 1. Umumiy va Kunlik tashriflarni oshirish
     const statsRef = ref(db, 'stats');
     update(statsRef, {
-        totalVisits: increment(1),
-        [`daily/${today}`]: increment(1)
-    });
+        totalVisits: increment(1), // Umumiy tashriflarni 1 ga oshirish
+        [`daily/${today}`]: increment(1) // Bugungi tashriflarni 1 ga oshirish
+    }).then(() => {
+        console.log("Firebase: Tashriflar muvaffaqiyatli yangilandi.");
+    }).catch(error => console.error("Firebase: Tashriflarni yangilashda xato:", error));
 
     // 2. Onlayn foydalanuvchini ro'yxatga olish
     const myPresenceRef = push(ref(db, 'onlineUsers'));
     // Qaysi qurilmadan kirayotganini ham saqlaymiz (Admin ko'rishi uchun)
     const deviceType = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? "📱 Mobil" : "💻 PC";
-    set(myPresenceRef, { lastSeen: Date.now(), device: deviceType });
+    set(myPresenceRef, { lastSeen: Date.now(), device: deviceType }).then(() => { console.log("Firebase: Onlayn holat ro'yxatga olindi."); }).catch(error => console.error("Firebase: Onlayn holatni ro'yxatga olishda xato:", error));
     onDisconnect(myPresenceRef).remove();
 
     // --- LOGIN MANTIG'I ---

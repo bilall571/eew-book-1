@@ -26,8 +26,7 @@
     import { getDatabase, ref, set, push, onDisconnect, increment, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
     const firebaseConfig = {
-        // DIQQAT: Bu yerga Firebase'dan olingan haqiqiy Realtime Database URL'ni qo'ying!
-        // Masalan: "https://your-project-id-default-rtdb.firebaseio.com"
+        // BU YERGA O'ZINGIZNING FIREBASE URL'INGIZNI QO'YING!
         databaseURL: "https://eew-words-default-rtdb.firebaseio.com",
     };
 
@@ -35,16 +34,21 @@
     const db = getDatabase();
 
     // --- STATISTIKA YURITISH ---
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    function trackStats() {
+        const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
+        const statsRef = ref(db, 'stats');
 
-    // 1. Umumiy va Kunlik tashriflarni oshirish
-    const statsRef = ref(db, 'stats');
-    update(statsRef, {
-        totalVisits: increment(1), // Umumiy tashriflarni 1 ga oshirish
-        [`daily/${today}`]: increment(1) // Bugungi tashriflarni 1 ga oshirish
-    }).then(() => {
-        console.log("Firebase: Tashriflar muvaffaqiyatli yangilandi.");
-    }).catch(error => console.error("Firebase: Tashriflarni yangilashda xato:", error));
+        // Bir marta kirganda jami va kunlikni +1 qilish
+        update(statsRef, {
+            totalVisits: increment(1),
+            [`daily/${today}`]: increment(1)
+        })
+        .then(() => console.log("✅ Statistika yangilandi"))
+        .catch(e => console.error("❌ Stats xatosi (Rules'ni tekshiring):", e));
+    }
+
+    // Sahifa yuklanganda ishlatish
+    trackStats();
 
     // 2. Onlayn foydalanuvchini ro'yxatga olish
     const myPresenceRef = push(ref(db, 'onlineUsers'));

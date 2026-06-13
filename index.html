@@ -26,12 +26,11 @@
     import { getDatabase, ref, set, push, onDisconnect, increment, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
     const firebaseConfig = {
-        // Diqqat: Firebase Konsolidagi "Database URL" ni to'liq nusxalang.
-        databaseURL: "https://eew-words-default-rtdb.firebaseio.com/",
+        databaseURL: "https://eew-words-default-rtdb.firebaseio.com",
     };
 
     const app = initializeApp(firebaseConfig);
-    const db = getDatabase();
+    const db = getDatabase(app);
 
     // --- BACKEND STATISTIKA (Real-time) ---
     function trackStats() {

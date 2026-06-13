@@ -535,17 +535,33 @@ buildDashboard();
 showBookSelectionOverlay();
 
 function showBookSelectionOverlay() {
-    const overlay = document.getElementById('book-choice-overlay');
-    if (!overlay) return;
+    const welcomeOverlay = document.getElementById('welcome-overlay');
+    const bookOverlay = document.getElementById('book-choice-overlay');
 
-    // Agar ushbu seansda kitob tanlangan bo'lsa, modalni ko'rsatmaymiz
-    if (sessionStorage.getItem('bookSelected')) {
-        overlay.style.display = 'none';
+    if (!bookOverlay) return;
+
+    // Agar foydalanuvchi bu seansda kitob tanlab bo'lgan bo'lsa, ko'rsatmaymiz
+    if (sessionStorage.getItem('bookSelected') === 'true') {
+        if (welcomeOverlay) welcomeOverlay.style.display = 'none';
+        bookOverlay.style.display = 'none';
         return;
     }
 
-    const bookButtons = overlay.querySelectorAll('[data-book]');
-    const modeButtons = overlay.querySelectorAll('[data-mode]');
+    // 1. Avval salomlashish ekranini ko'rsatamiz
+    if (welcomeOverlay) {
+        welcomeOverlay.style.display = 'flex';
+
+        // 2. 3.5 soniyadan keyin uni yopib, kitob tanlashni chiqaramiz
+        setTimeout(() => {
+            welcomeOverlay.style.display = 'none';
+            bookOverlay.style.display = 'flex';
+        }, 3500);
+    } else {
+        bookOverlay.style.display = 'flex';
+    }
+
+    const bookButtons = bookOverlay.querySelectorAll('[data-book]');
+    const modeButtons = bookOverlay.querySelectorAll('[data-mode]');
     let chosenBook = null;
 
     const updateBookButtons = () => {
@@ -566,7 +582,7 @@ function showBookSelectionOverlay() {
     modeButtons.forEach(button => {
         button.onclick = () => {
             if (!chosenBook) {
-                const hint = overlay.querySelector('.modal-hint');
+                const hint = bookOverlay.querySelector('.modal-hint');
                 if (hint) { hint.style.color = '#ea2b2b'; hint.textContent = 'Iltimos, avval kitobni tanlang!'; }
                 return;
             }
@@ -590,7 +606,7 @@ function showBookSelectionOverlay() {
             }
 
             selectedMode = 'memorize';
-            overlay.style.display = 'none';
+            bookOverlay.style.display = 'none';
             const brandSubtitle = document.querySelector('.brand-subtitle');
             if (brandSubtitle) {
                 brandSubtitle.textContent = `Tanlangan kitob: ${chosenInfo.name}. Unitni tanlang va yodlashni boshlang!`;

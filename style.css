@@ -296,10 +296,10 @@ button, .option-card, .match-card { touch-action: manipulation; }
     width: 100vw;
     height: 100vh;
     background: rgba(12, 24, 45, 0.72);
-    display: flex;
+    display: none; /* Boshida yashirin turadi, JS orqali chiqaramiz */
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 999999; /* Hamma narsadan, hatto admin paneldan ham ustida tursin */
     padding: 20px 16px;
 }
 

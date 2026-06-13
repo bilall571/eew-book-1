@@ -1,11 +1,18 @@
 const CACHE_NAME = 'eew-offline-v1';
 const OFFLINE_URL = 'offline.html';
+const ASSETS_TO_CACHE = [
+    OFFLINE_URL,
+    'index.html',
+    'style.css',
+    'script.js',
+    './sounds/correct.mp3',
+    './sounds/wrong.mp3'
+];
 
-// Saytga kirganda offline.html ni keshga (xotiraga) saqlab oladi
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
-            return cache.add(OFFLINE_URL);
+            return cache.addAll(ASSETS_TO_CACHE);
         })
     );
 });

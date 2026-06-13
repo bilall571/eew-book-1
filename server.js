@@ -1,9 +1,4 @@
-{
-  "dependencies": {
-    "@vercel/analytics": "^2.0.1"
-  }
-}
-
+// server.js
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');

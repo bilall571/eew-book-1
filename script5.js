@@ -706,9 +706,9 @@ const feedbackMsg = document.getElementById("feedback-message");
 const appContainer = document.getElementById("app-container");
 const matchGrid = document.getElementById("match-grid");
 
-// OVOZLAR BAZASI VA PRE-LOAD
-const correctSound = new Audio('https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3');
-const wrongSound = new Audio('https://www.soundjay.com/buttons/sounds/button-10.mp3');
+// OVOZLAR BAZASI (LOKAL FAYLLAR)
+const correctSound = new Audio('./sounds/correct.mp3');
+const wrongSound = new Audio('./sounds/wrong.mp3');
 
 // Brauzerda ovozni faollashtirish (PC va Mobile uchun)
 function unlockAudio() {
@@ -1001,6 +1001,8 @@ function handleMatchClick(btn, t) {
                 first.btn.classList.replace("selected", "matched");
                 second.btn.classList.replace("selected", "matched");
                 matchGrid.style.pointerEvents = "auto";
+                correctSound.currentTime = 0;
+                correctSound.play().catch(e => console.log("Ovoz xatosi:", e));
                 matchesFound++;
                 progressBar.style.width = `${(matchesFound / 10) * 100}%`;
 
@@ -1010,6 +1012,8 @@ function handleMatchClick(btn, t) {
             }, 300);
         } else {
             mistakesCount++;
+            wrongSound.currentTime = 0;
+            wrongSound.play().catch(e => console.log("Ovoz xatosi:", e));
 
             // MATCH REJIMIDA ADASHILGAN SO'ZLARNI HAM RO'YXATGA QO'SHISH
             const w1 = matchWordsGlobal[first.t.id];

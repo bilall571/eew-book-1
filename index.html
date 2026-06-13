@@ -26,35 +26,42 @@
     import { getDatabase, ref, set, push, onDisconnect, increment, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
     const firebaseConfig = {
-        // BU YERGA O'ZINGIZNING FIREBASE URL'INGIZNI QO'YING!
-        databaseURL: "https://eew-words-default-rtdb.firebaseio.com",
+        // Diqqat: Firebase Konsolidagi "Database URL" ni to'liq nusxalang.
+        databaseURL: "https://eew-words-default-rtdb.firebaseio.com/",
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase();
 
-    // --- STATISTIKA YURITISH ---
+    // --- BACKEND STATISTIKA (Real-time) ---
     function trackStats() {
+        // Internet yo'qligida Firebase funksiyasini chaqirmaslik uchun
+        if (!navigator.onLine) {
+            console.warn("⚠️ Qurilma oflayn. Statistika yuborilmadi.");
+            return;
+        }
+
         const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
         const statsRef = ref(db, 'stats');
 
-        // Bir marta kirganda jami va kunlikni +1 qilish
+        // Jami va Kunlik tashriflarni serverda +1 ga oshirish
         update(statsRef, {
             totalVisits: increment(1),
             [`daily/${today}`]: increment(1)
         })
-        .then(() => console.log("✅ Statistika yangilandi"))
+        .then(() => console.log("✅ Server: Tashrif hisoblandi"))
         .catch(e => console.error("❌ Stats xatosi (Rules'ni tekshiring):", e));
     }
 
     // Sahifa yuklanganda ishlatish
     trackStats();
 
-    // 2. Onlayn foydalanuvchini ro'yxatga olish
+    // Onlayn foydalanuvchini bazaga qo'shish
     const myPresenceRef = push(ref(db, 'onlineUsers'));
-    // Qaysi qurilmadan kirayotganini ham saqlaymiz (Admin ko'rishi uchun)
     const deviceType = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ? "📱 Mobil" : "💻 PC";
-    set(myPresenceRef, { lastSeen: Date.now(), device: deviceType }).then(() => { console.log("Firebase: Onlayn holat ro'yxatga olindi."); }).catch(error => console.error("Firebase: Onlayn holatni ro'yxatga olishda xato:", error));
+
+    set(myPresenceRef, { lastSeen: Date.now(), device: deviceType, page: "Book 1" });
+    // Sahifani yopganda serverdagi onlayn ro'yxatidan o'chirish (Vazifani backend bajaradi)
     onDisconnect(myPresenceRef).remove();
 
     // --- LOGIN MANTIG'I ---

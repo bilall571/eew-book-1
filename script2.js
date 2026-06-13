@@ -704,6 +704,17 @@ const feedbackMsg = document.getElementById("feedback-message");
 const appContainer = document.getElementById("app-container");
 const matchGrid = document.getElementById("match-grid");
 
+// OVOZLAR BAZASI (LOKAL FAYLLAR)
+const correctSound = new Audio('./sounds/correct.mp3');
+const wrongSound = new Audio('./sounds/wrong.mp3');
+
+// Brauzerda ovozni faollashtirish
+function unlockAudio() {
+    correctSound.play().then(() => { correctSound.pause(); correctSound.currentTime = 0; }).catch(() => {});
+    wrongSound.play().then(() => { wrongSound.pause(); wrongSound.currentTime = 0; }).catch(() => {});
+}
+window.addEventListener('click', unlockAudio, { once: true });
+
 // (Import UI removed - using dashboard controls)
 
 // O'YIN HOLATI VA HATOLIKLARNI JAVOBGAR O'ZGARUVCHILARI
@@ -783,6 +794,7 @@ function showPhaseTransition(title, desc) {
 
 document.getElementById("start-phase-btn").onclick = () => {
     gameHeader.style.display = "flex";
+    unlockAudio();
     if (currentPhase === 1) {
         // If a single unit is active, use its words; otherwise ensure activeWords is set (from merged selection)
         if (selectedUnitKey && database[selectedUnitKey]) {
@@ -907,6 +919,8 @@ actionBtn.onclick = () => {
 
         if (isCorrect) {
             if (selectedOptionBtn) selectedOptionBtn.classList.add("correct");
+            correctSound.currentTime = 0;
+            correctSound.play().catch(e => console.log("Ovoz xatosi:", e));
             footer.classList.add("correct-bg");
             actionBtn.classList.add("btn-correct");
             feedbackMsg.textContent = "✅ Ajoyib! To'g'ri topdingiz.";
@@ -914,6 +928,8 @@ actionBtn.onclick = () => {
             currentQuestionCount++;
         } else {
             mistakesCount++;
+            wrongSound.currentTime = 0;
+            wrongSound.play().catch(e => console.log("Ovoz xatosi:", e));
 
             // XATO QILINGAN SO'ZNI RO'YXATGA QO'SHISH
             if (!failedWords.some(w => w.en === currentWord.en)) {
@@ -983,6 +999,8 @@ function handleMatchClick(btn, t) {
                 first.btn.classList.replace("selected", "matched");
                 second.btn.classList.replace("selected", "matched");
                 matchGrid.style.pointerEvents = "auto";
+                correctSound.currentTime = 0;
+                correctSound.play().catch(e => console.log("Ovoz xatosi:", e));
                 matchesFound++;
                 progressBar.style.width = `${(matchesFound / 10) * 100}%`;
 
@@ -992,6 +1010,8 @@ function handleMatchClick(btn, t) {
             }, 300);
         } else {
             mistakesCount++;
+            wrongSound.currentTime = 0;
+            wrongSound.play().catch(e => console.log("Ovoz xatosi:", e));
 
             // MATCH REJIMIDA ADASHILGAN SO'ZLARNI HAM RO'YXATGA QO'SHISH
             const w1 = matchWordsGlobal[first.t.id];
